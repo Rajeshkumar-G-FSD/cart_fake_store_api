@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+// Navbar component that displays the count of items in the cart
 function Navbar({ cartItemsCount }) {
   return (
     <nav className="flex items-center justify-between p-6 bg-blue-500">
@@ -12,50 +13,55 @@ function Navbar({ cartItemsCount }) {
 }
 
 function App() {
+  // State variables
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
 
+  // Fetch product data from the API
   let fetchProducts = async () => {
     const productsData = await fetch("https://fakestoreapi.com/products");
     const productResponse = await productsData.json();
     setProducts(productResponse);
   };
 
+  // Add a product to the cart
   let addToCart = (product) => {
     const isProductInCart = cart.some((item) => item.id === product.id);
     if (isProductInCart) {
       alert("Item already added to the cart");
       return;
     }
-
     setCart([...cart, product]);
     setTotal(total + parseInt(product.price));
   };
 
+  // Remove a product from the cart
   let removeCart = (item, index) => {
     cart.splice(index, 1);
     setCart([...cart]);
     setTotal(total - parseInt(item.price));
   };
 
+  // Fetch products when the component mounts
   useEffect(() => {
     fetchProducts();
   }, []);
 
   return (
     <>
+      {/* Include the Navbar component with cart items count */}
       <Navbar cartItemsCount={cart.length} />
-      <div className="flex h-screen bg-gray-100">
-        <div className="w-4/5 p-6 overflow-y-auto">
-          <div className="grid grid-cols-6 gap-6">
+      <div className="flex flex-col lg:flex-row h-screen bg-gray-100">
+        <div className="w-full lg:w-4/5 p-6 overflow-y-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
             {products.map((product, index) => {
               return (
                 <div key={index} className="p-4 bg-white rounded-lg shadow-md">
                   <img
                     className="object-cover w-full h-48 rounded-md"
                     src={`${product.image}`}
-                    alt=""
+                    alt={product.title}
                   />
                   <div className="mt-4">
                     <h3
@@ -70,9 +76,7 @@ function App() {
                     </h3>
                     <p className="text-gray-600">Rs.{product.price}</p>
                     <button
-                      onClick={() => {
-                        addToCart(product);
-                      }}
+                      onClick={() => addToCart(product)}
                       className="w-full px-4 py-2 mt-2 text-white bg-blue-500 rounded hover:bg-blue-600"
                     >
                       Add to Cart
@@ -83,7 +87,7 @@ function App() {
             })}
           </div>
         </div>
-        <div className="w-1/5 p-6 bg-white shadow-lg">
+        <div className="w-full lg:w-1/5 p-6 bg-white shadow-lg">
           <h2 className="mb-4 text-xl font-bold">Shopping Cart</h2>
           <div className="space-y-4">
             {cart.map((item, index) => {
@@ -94,9 +98,7 @@ function App() {
                     <p className="text-gray-600">Rs.{item.price}</p>
                   </div>
                   <button
-                    onClick={() => {
-                      removeCart(item, index);
-                    }}
+                    onClick={() => removeCart(item, index)}
                     className="text-red-500 hover:text-red-700"
                   >
                     Remove
