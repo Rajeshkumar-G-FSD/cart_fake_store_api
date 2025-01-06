@@ -49,3 +49,13 @@ Code Structure
 src/App.js: Main component that fetches products, manages the shopping cart, and renders the product list and shopping cart.
 
 src/Navbar.js: Component that displays the count of items in the cart.
+
+License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+Acknowledgements
+React
+
+Tailwind CSS
+
+Fake Store API
