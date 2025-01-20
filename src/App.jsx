@@ -93,7 +93,7 @@ function ProductList({ products, addToCart }) {
               />
               <div className="mt-4">
                 <h3
-                  className="text-lg font-semibold"
+                  className="text-lg font-semibold text-purple-700"
                   style={{
                     whiteSpace: "nowrap",
                     overflow: "hidden",
@@ -102,8 +102,8 @@ function ProductList({ products, addToCart }) {
                 >
                   {product.title}
                 </h3>
-                <p className="text-gray-600">Rs.{product.price}</p>
-                <p className="text-gray-700 mt-2" title={product.description}>{product.description.substring(0, 30)}...</p>
+                <p className="text-blue-600">Rs.{product.price}</p>
+                <p className="text-green-600 mt-2" title={product.description}>{product.description.substring(0, 30)}...</p>
                 <button
                   onClick={() => handleAddToCart(product)}
                   className="w-full px-4 py-2 mt-2 bg-blue-500 text-white rounded hover:bg-blue-600"
